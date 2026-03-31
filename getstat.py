@@ -67,30 +67,30 @@ if __name__ == "__main__":
         sysdata['threads'] = psutil.cpu_count()
         sysdata['mem_total'] = toGB(psutil.virtual_memory().total)
         sysdata['swap_total'] = toGB(psutil.swap_memory().total)
-        monitor_dir = '/tmp'  # you can change this to '/home/username' if you prefer
-        if os.path.exists(monitor_dir):
-            sysdata['scratch_type'] = 'SSD' if is_ssd(monitor_dir) else 'HDD'
-            scratch_usage = psutil.disk_usage(monitor_dir)
-            sysdata['scratch_used'] = toGB(scratch_usage.used)
-            sysdata['scratch_total'] = toGB(scratch_usage.total)
+        # monitor_dir = '/tmp'  # you can change this to '/home/username' if you prefer
+        # if os.path.exists(monitor_dir):
+        #     sysdata['scratch_type'] = 'SSD' if is_ssd(monitor_dir) else 'HDD'
+        #     scratch_usage = psutil.disk_usage(monitor_dir)
+        #     sysdata['scratch_used'] = toGB(scratch_usage.used)
+        #     sysdata['scratch_total'] = toGB(scratch_usage.total)
     
 
 
-        if os.path.isdir('/ssd0'):
-            ssd0_usage = psutil.disk_usage('/ssd0')
-            sysdata['ssd0_exist'] = True
-            sysdata['ssd0_used'] = toGB(ssd0_usage.used)
-            sysdata['ssd0_total'] = toGB(ssd0_usage.total)
-        else:
-            sysdata['ssd0_exist'] = False
+        # if os.path.isdir('/ssd0'):
+        #     ssd0_usage = psutil.disk_usage('/ssd0')
+        #     sysdata['ssd0_exist'] = True
+        #     sysdata['ssd0_used'] = toGB(ssd0_usage.used)
+        #     sysdata['ssd0_total'] = toGB(ssd0_usage.total)
+        # else:
+        #     sysdata['ssd0_exist'] = False
 
-        if os.path.isdir('/ssd1'):
-            ssd1_usage = psutil.disk_usage('/ssd1')
-            sysdata['ssd1_exist'] = True
-            sysdata['ssd1_used'] = toGB(ssd1_usage.used)
-            sysdata['ssd1_total'] = toGB(ssd1_usage.total)
-        else:
-            sysdata['ssd1_exist'] = False
+        # if os.path.isdir('/ssd1'):
+        #     ssd1_usage = psutil.disk_usage('/ssd1')
+        #     sysdata['ssd1_exist'] = True
+        #     sysdata['ssd1_used'] = toGB(ssd1_usage.used)
+        #     sysdata['ssd1_total'] = toGB(ssd1_usage.total)
+        # else:
+        #     sysdata['ssd1_exist'] = False
 
         procs = deviceCount*[None]
         gpu_error = deviceCount*[False]
@@ -164,11 +164,11 @@ if __name__ == "__main__":
                     gpudata[i]['procs'] = []
             time.sleep(SNAPSHOT_INTERVAL_SEC)
 
-        sysdata['cpu_usage'] = max(cpu_usage)
-        sysdata['mem_usage'] = max(mem_usage)
-        sysdata['swap_usage'] = max(swap_usage)
-        sysdata['disk_read'] = toMB(max(disk_read[0:-1]))
-        sysdata['disk_write'] = toMB(max(disk_write[0:-1]))
+        # sysdata['cpu_usage'] = max(cpu_usage)
+        # sysdata['mem_usage'] = max(mem_usage)
+        # sysdata['swap_usage'] = max(swap_usage)
+        # sysdata['disk_read'] = toMB(max(disk_read[0:-1]))
+        # sysdata['disk_write'] = toMB(max(disk_write[0:-1]))
 
         for i in range(deviceCount):
             if gpu_error[i]:
