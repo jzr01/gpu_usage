@@ -33,5 +33,5 @@ def sendui(path):
     return send_from_directory('static', path)
 
 if __name__ == "__main__":
-    port = 50692 if len(sys.argv) < 2 else int(sys.argv[1])
+    port = 4000
     app.run('0.0.0.0', port, threaded=True)

@@ -80,7 +80,7 @@ if __name__ == "__main__":
             try:
                 handle = nvmlDeviceGetHandleByIndex(i)
                 name = nvmlDeviceGetName(handle)
-                gpudata[i]['name'] = name.decode('utf-8')
+                gpudata[i]['name'] = name
 
                 memInfo = nvmlDeviceGetMemoryInfo(handle)
                 gpudata[i]['mem_free'] = toMB(memInfo.total - memInfo.used)
@@ -156,13 +156,14 @@ if __name__ == "__main__":
             if gpu_error[i]:
                 continue
             for j in range(len(procs[i])):
-                gpudata[i]['procs'][j] += (toMB(max(gpu_mem[i][j])), )
+                gpudata[i]['procs'][j] += (toGB(max(gpu_mem[i][j])), )
 
             # Update 2021 for new NVIDIA driver (455.38)
             # Filtering out zero-memory processes
             gpudata[i]['procs'] = [p for p in gpudata[i]['procs'] if p[-1]]
-            
-        res = template.render(machine_name=machine_name,
+        
+        node_name = f"server-{machine_name.split('.')[0].split('-')[-1]}"  
+        res = template.render(machine_name=node_name,
                             update_time=time.strftime("%m-%d-%Y %H:%M:%S %Z"),
                             gpudata=gpudata,
                             sysdata=sysdata)

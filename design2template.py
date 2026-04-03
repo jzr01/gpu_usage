@@ -24,6 +24,8 @@ if use_toc:
 
 	node_list_html = '	<ul>\n'
 	for node in node_list:
+		#change name to server-##
+		node = f"server-{node.split('.')[0].split('-')[-1]}"
 		node_list_html += \
 			'		<li><a class="scroll-to" href="#%s">%s</a></li>\n' % \
 				(node, node)
